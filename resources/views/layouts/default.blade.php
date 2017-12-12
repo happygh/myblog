@@ -2,7 +2,12 @@
 <html>
   <head>
     <title>@yield('title', '首页APP') - Laravel 入门教程</title>
-    <link rel="stylesheet" href="/css/app.css">
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
     @include('layouts._header')
@@ -14,5 +19,6 @@
         @include('layouts._footer')
       </div>
     </div>
+
   </body>
 </html>
