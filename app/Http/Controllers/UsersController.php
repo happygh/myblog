@@ -48,12 +48,16 @@ class UsersController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:50',
-            'password' => 'required|confirmed|min:4'
+            'password' => 'nullable|confirmed|min:4'
         ]);
-        $user->update([
-            'name' => $request->name,
-            'password' => bcrypt($request->password)
-        ]);
+        $data = [];
+        $data['name'] = $request->name;
+        if ($request->password)
+        {
+            $data['password'] = bcrypt($request->password);
+        }
+        $user->update($data);
+        session()->flash('success', '修改成功');
         return redirect()->route('users.show', $user->id);
     }
 }
