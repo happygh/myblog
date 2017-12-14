@@ -35,7 +35,10 @@ class UsersController extends Controller
         return view('users.show', compact('user'));
     }
 
-    //用户注册处理表单验证并提示成功信息
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -54,13 +57,21 @@ class UsersController extends Controller
         return redirect()->route('users.show', [$users]);
     }
 
-    //edit
+    /**
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit(User $user)
     {
         $this->authorize('update', $user);
         return view('users.edit', compact('user'));
     }
 
+    /**
+     * @param User $user
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(User $user, Request $request)
     {
         $this->validate($request, [
@@ -76,5 +87,17 @@ class UsersController extends Controller
         $user->update($data);
         session()->flash('success', '修改成功');
         return redirect()->route('users.show', $user->id);
+    }
+
+    /**
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(User $user)
+    {
+        $this->authorize('destroy', $user);
+        $user->delete();
+        session()->flash('success', '操作成功');
+        return redirect()->back();
     }
 }
