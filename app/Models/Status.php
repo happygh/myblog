@@ -9,7 +9,7 @@ class Status extends Model
     protected $fillable = ['content'];
     public function user()
     {
-        return $this->belongTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
 }
